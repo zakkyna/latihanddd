@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "22282868415",
+    "project_id": "latihanddd",
+    "storage_bucket": "latihanddd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22282868415:android:95837aa16a65bbb900d80a",
+        "android_client_info": {
+          "package_name": "com.example.latihanddd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22282868415-dmdqtoa2o1ine48ss95s06o6mnktmhqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQV4BC7U9-lyH6SxHwS8p0LjGxa_LOFHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22282868415-dmdqtoa2o1ine48ss95s06o6mnktmhqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
