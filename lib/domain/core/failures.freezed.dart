@@ -27,6 +27,18 @@ class _$ValueFailureTearOff {
       failedValue: failedValue,
     );
   }
+
+  ShortFullName<T> shortFullName<T>({required String failedValue}) {
+    return ShortFullName<T>(
+      failedValue: failedValue,
+    );
+  }
+
+  PasswordNotSame<T> passwordNotSame<T>({required String failedValue}) {
+    return PasswordNotSame<T>(
+      failedValue: failedValue,
+    );
+  }
 }
 
 /// @nodoc
@@ -40,12 +52,16 @@ mixin _$ValueFailure<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(String failedValue) invalidEmail,
     required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue) shortFullName,
+    required TResult Function(String failedValue) passwordNotSame,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String failedValue)? invalidEmail,
     TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? shortFullName,
+    TResult Function(String failedValue)? passwordNotSame,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -53,12 +69,16 @@ mixin _$ValueFailure<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmail<T> value) invalidEmail,
     required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(ShortFullName<T> value) shortFullName,
+    required TResult Function(PasswordNotSame<T> value) passwordNotSame,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmail<T> value)? invalidEmail,
     TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(ShortFullName<T> value)? shortFullName,
+    TResult Function(PasswordNotSame<T> value)? passwordNotSame,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -168,6 +188,8 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(String failedValue) invalidEmail,
     required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue) shortFullName,
+    required TResult Function(String failedValue) passwordNotSame,
   }) {
     return invalidEmail(failedValue);
   }
@@ -177,6 +199,8 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String failedValue)? invalidEmail,
     TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? shortFullName,
+    TResult Function(String failedValue)? passwordNotSame,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
@@ -190,6 +214,8 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmail<T> value) invalidEmail,
     required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(ShortFullName<T> value) shortFullName,
+    required TResult Function(PasswordNotSame<T> value) passwordNotSame,
   }) {
     return invalidEmail(this);
   }
@@ -199,6 +225,8 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmail<T> value)? invalidEmail,
     TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(ShortFullName<T> value)? shortFullName,
+    TResult Function(PasswordNotSame<T> value)? passwordNotSame,
     required TResult orElse(),
   }) {
     if (invalidEmail != null) {
@@ -289,6 +317,8 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult when<TResult extends Object?>({
     required TResult Function(String failedValue) invalidEmail,
     required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue) shortFullName,
+    required TResult Function(String failedValue) passwordNotSame,
   }) {
     return shortPassword(failedValue);
   }
@@ -298,6 +328,8 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String failedValue)? invalidEmail,
     TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? shortFullName,
+    TResult Function(String failedValue)? passwordNotSame,
     required TResult orElse(),
   }) {
     if (shortPassword != null) {
@@ -311,6 +343,8 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidEmail<T> value) invalidEmail,
     required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(ShortFullName<T> value) shortFullName,
+    required TResult Function(PasswordNotSame<T> value) passwordNotSame,
   }) {
     return shortPassword(this);
   }
@@ -320,6 +354,8 @@ class _$ShortPassword<T> implements ShortPassword<T> {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidEmail<T> value)? invalidEmail,
     TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(ShortFullName<T> value)? shortFullName,
+    TResult Function(PasswordNotSame<T> value)? passwordNotSame,
     required TResult orElse(),
   }) {
     if (shortPassword != null) {
@@ -338,5 +374,265 @@ abstract class ShortPassword<T> implements ValueFailure<T> {
   @override
   @JsonKey(ignore: true)
   $ShortPasswordCopyWith<T, ShortPassword<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ShortFullNameCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $ShortFullNameCopyWith(
+          ShortFullName<T> value, $Res Function(ShortFullName<T>) then) =
+      _$ShortFullNameCopyWithImpl<T, $Res>;
+  @override
+  $Res call({String failedValue});
+}
+
+/// @nodoc
+class _$ShortFullNameCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $ShortFullNameCopyWith<T, $Res> {
+  _$ShortFullNameCopyWithImpl(
+      ShortFullName<T> _value, $Res Function(ShortFullName<T>) _then)
+      : super(_value, (v) => _then(v as ShortFullName<T>));
+
+  @override
+  ShortFullName<T> get _value => super._value as ShortFullName<T>;
+
+  @override
+  $Res call({
+    Object? failedValue = freezed,
+  }) {
+    return _then(ShortFullName<T>(
+      failedValue: failedValue == freezed
+          ? _value.failedValue
+          : failedValue // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ShortFullName<T> implements ShortFullName<T> {
+  const _$ShortFullName({required this.failedValue});
+
+  @override
+  final String failedValue;
+
+  @override
+  String toString() {
+    return 'ValueFailure<$T>.shortFullName(failedValue: $failedValue)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ShortFullName<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @JsonKey(ignore: true)
+  @override
+  $ShortFullNameCopyWith<T, ShortFullName<T>> get copyWith =>
+      _$ShortFullNameCopyWithImpl<T, ShortFullName<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String failedValue) invalidEmail,
+    required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue) shortFullName,
+    required TResult Function(String failedValue) passwordNotSame,
+  }) {
+    return shortFullName(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String failedValue)? invalidEmail,
+    TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? shortFullName,
+    TResult Function(String failedValue)? passwordNotSame,
+    required TResult orElse(),
+  }) {
+    if (shortFullName != null) {
+      return shortFullName(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidEmail<T> value) invalidEmail,
+    required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(ShortFullName<T> value) shortFullName,
+    required TResult Function(PasswordNotSame<T> value) passwordNotSame,
+  }) {
+    return shortFullName(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidEmail<T> value)? invalidEmail,
+    TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(ShortFullName<T> value)? shortFullName,
+    TResult Function(PasswordNotSame<T> value)? passwordNotSame,
+    required TResult orElse(),
+  }) {
+    if (shortFullName != null) {
+      return shortFullName(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ShortFullName<T> implements ValueFailure<T> {
+  const factory ShortFullName({required String failedValue}) =
+      _$ShortFullName<T>;
+
+  @override
+  String get failedValue => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  $ShortFullNameCopyWith<T, ShortFullName<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PasswordNotSameCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory $PasswordNotSameCopyWith(
+          PasswordNotSame<T> value, $Res Function(PasswordNotSame<T>) then) =
+      _$PasswordNotSameCopyWithImpl<T, $Res>;
+  @override
+  $Res call({String failedValue});
+}
+
+/// @nodoc
+class _$PasswordNotSameCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements $PasswordNotSameCopyWith<T, $Res> {
+  _$PasswordNotSameCopyWithImpl(
+      PasswordNotSame<T> _value, $Res Function(PasswordNotSame<T>) _then)
+      : super(_value, (v) => _then(v as PasswordNotSame<T>));
+
+  @override
+  PasswordNotSame<T> get _value => super._value as PasswordNotSame<T>;
+
+  @override
+  $Res call({
+    Object? failedValue = freezed,
+  }) {
+    return _then(PasswordNotSame<T>(
+      failedValue: failedValue == freezed
+          ? _value.failedValue
+          : failedValue // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PasswordNotSame<T> implements PasswordNotSame<T> {
+  const _$PasswordNotSame({required this.failedValue});
+
+  @override
+  final String failedValue;
+
+  @override
+  String toString() {
+    return 'ValueFailure<$T>.passwordNotSame(failedValue: $failedValue)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is PasswordNotSame<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @JsonKey(ignore: true)
+  @override
+  $PasswordNotSameCopyWith<T, PasswordNotSame<T>> get copyWith =>
+      _$PasswordNotSameCopyWithImpl<T, PasswordNotSame<T>>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String failedValue) invalidEmail,
+    required TResult Function(String failedValue) shortPassword,
+    required TResult Function(String failedValue) shortFullName,
+    required TResult Function(String failedValue) passwordNotSame,
+  }) {
+    return passwordNotSame(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String failedValue)? invalidEmail,
+    TResult Function(String failedValue)? shortPassword,
+    TResult Function(String failedValue)? shortFullName,
+    TResult Function(String failedValue)? passwordNotSame,
+    required TResult orElse(),
+  }) {
+    if (passwordNotSame != null) {
+      return passwordNotSame(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidEmail<T> value) invalidEmail,
+    required TResult Function(ShortPassword<T> value) shortPassword,
+    required TResult Function(ShortFullName<T> value) shortFullName,
+    required TResult Function(PasswordNotSame<T> value) passwordNotSame,
+  }) {
+    return passwordNotSame(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidEmail<T> value)? invalidEmail,
+    TResult Function(ShortPassword<T> value)? shortPassword,
+    TResult Function(ShortFullName<T> value)? shortFullName,
+    TResult Function(PasswordNotSame<T> value)? passwordNotSame,
+    required TResult orElse(),
+  }) {
+    if (passwordNotSame != null) {
+      return passwordNotSame(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PasswordNotSame<T> implements ValueFailure<T> {
+  const factory PasswordNotSame({required String failedValue}) =
+      _$PasswordNotSame<T>;
+
+  @override
+  String get failedValue => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  $PasswordNotSameCopyWith<T, PasswordNotSame<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

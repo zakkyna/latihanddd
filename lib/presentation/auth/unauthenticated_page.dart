@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:latihanddd/application/core/route.dart';
+import 'package:get/get.dart';
 import 'package:latihanddd/domain/core/theme.dart';
-import 'package:latihanddd/infrastructure/repositories/user_repository.dart';
 import 'package:latihanddd/presentation/core/widgets/widgets.dart';
 
 import 'unauthenticated.dart';
 
 class UnauthenticatedPage extends StatelessWidget {
-  final UserRepository _userRepository;
-
-  const UnauthenticatedPage({Key? key, required UserRepository userRepository})
-      : _userRepository = userRepository,
-        super(key: key);
+  const UnauthenticatedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +30,7 @@ class UnauthenticatedPage extends StatelessWidget {
                 fontColor: yellowButtonColor,
                 margin: EdgeInsets.zero,
                 onPressed: () {
-                  to(LoginPage(userRepository: _userRepository));
+                  Get.to(LoginPage());
                 }),
             const SizedBox(
               height: 20,
@@ -45,7 +40,7 @@ class UnauthenticatedPage extends StatelessWidget {
               color: Colors.grey,
               margin: EdgeInsets.zero,
               onPressed: () {
-                to(RegisterPage(userRepository: _userRepository));
+                Get.to(RegisterPage());
               },
             ),
           ],

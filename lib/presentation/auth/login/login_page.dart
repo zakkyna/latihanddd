@@ -1,41 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:latihanddd/application/auth/auth_bloc.dart';
 import 'package:latihanddd/application/auth/login_bloc/login_bloc.dart';
-import 'package:latihanddd/application/core/app_bloc/app_bloc.dart';
-import 'package:latihanddd/application/core/route.dart';
 import 'package:latihanddd/domain/core/theme.dart';
-import 'package:latihanddd/infrastructure/repositories/user_repository.dart';
+import 'package:latihanddd/injection.dart';
 import 'package:latihanddd/presentation/core/widgets/widgets.dart';
-
-import '../unauthenticated.dart';
+import 'package:latihanddd/presentation/router/router.dart';
 
 class LoginPage extends StatelessWidget {
-  final UserRepository _userRepository;
-
-  const LoginPage({Key? key, required UserRepository userRepository})
-      : _userRepository = userRepository,
-        super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       body: BlocProvider<LoginBloc>(
-        create: (context) => LoginBloc(userRepository: _userRepository),
-        child: LoginForm(
-          userRepository: _userRepository,
-        ),
+        create: (context) => getIt<LoginBloc>(),
+        child: LoginForm(),
       ),
     );
   }
 }
 
 class LoginForm extends StatefulWidget {
-  final UserRepository _userRepository;
-
-  const LoginForm({Key? key, required UserRepository userRepository})
-      : _userRepository = userRepository,
-        super(key: key);
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -45,18 +34,8 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  bool showPassword = false;
-
   late final LoginBloc _loginBloc = BlocProvider.of<LoginBloc>(context);
-
-  UserRepository get _userRepository => widget._userRepository;
-
-  bool get isPopulated =>
-      _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
-
-  bool isLoginButtonEnabled(LoginState state) {
-    return state.isFormValid && isPopulated && !state.isSubmitting;
-  }
+  late final AuthBloc _authBloc = BlocProvider.of<AuthBloc>(context);
 
   @override
   void initState() {
@@ -69,24 +48,41 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state.isFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(state.failureMessage),
+        state.authFailureOrSuccessOption.fold(
+          () {},
+          (either) => either.fold(
+            (failure) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            failure.map(
+                              cancelledByUser: (_) => 'Cancelled',
+                              serverError: (_) => 'Server error',
+                              emailAlreadyInUse: (_) => 'Email already in use',
+                              invalidEmailAndPasswordCombination: (_) =>
+                                  'Invalid email and password combination',
+                            ),
+                          ),
+                        ),
+                        const Icon(Icons.error),
+                      ],
                     ),
-                    const Icon(Icons.error),
-                  ],
-                ),
-                backgroundColor: Colors.red,
-              ),
-            );
-        }
+                    backgroundColor: Colors.red,
+                  ),
+                );
+            },
+            (_) {
+              Get.offAllNamed(Routers.weather);
+              _authBloc.add(const AuthEvent.authCheckRequested());
+            },
+          ),
+        );
         if (state.isSubmitting) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -102,29 +98,6 @@ class _LoginFormState extends State<LoginForm> {
               ),
             );
         }
-        if (state.isSuccess) {
-          BlocProvider.of<AppBloc>(context).add(LoggedIn());
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const <Widget>[
-                    Flexible(
-                      child: Text('Login success !'),
-                    ),
-                    Icon(
-                      Icons.check_circle_outline,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-                backgroundColor: Colors.green,
-              ),
-            );
-          goBack();
-        }
       },
       builder: (context, state) {
         return Form(
@@ -139,7 +112,9 @@ class _LoginFormState extends State<LoginForm> {
                 textAlign: TextAlign.center,
               ),
               TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                autovalidateMode: state.showErrorMessages
+                    ? AutovalidateMode.always
+                    : AutovalidateMode.disabled,
                 controller: _emailController,
                 style: inputStyle,
                 decoration: InputDecoration(
@@ -171,15 +146,21 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
-                validator: (_) {
-                  return !state.isEmailValid ? 'Invalid Email' : null;
-                },
+                validator: (_) => state.emailAddress.value.fold(
+                  (f) => f.maybeMap(
+                    invalidEmail: (_) => 'Invalid Email',
+                    orElse: () => null,
+                  ),
+                  (_) => null,
+                ),
               ),
               const SizedBox(
                 height: 15,
               ),
               TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                autovalidateMode: state.showErrorMessages
+                    ? AutovalidateMode.always
+                    : AutovalidateMode.disabled,
                 controller: _passwordController,
                 style: inputStyle,
                 decoration: InputDecoration(
@@ -209,11 +190,12 @@ class _LoginFormState extends State<LoginForm> {
                     size: 22,
                   ),
                   suffixIcon: GestureDetector(
-                    onTap: () => setState(() => showPassword = !showPassword),
+                    onTap: () =>
+                        _loginBloc.add(LoginEvent.toggleShowPasswordPressed()),
                     child: Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: Icon(
-                        showPassword
+                        state.showPassword
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
                         color: Colors.black,
@@ -222,16 +204,19 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                 ),
-                obscureText: !showPassword,
+                obscureText: !state.showPassword,
                 autocorrect: false,
-                validator: (_) {
-                  return !state.isPasswordValid ? 'Invalid Password' : null;
-                },
+                validator: (_) => state.password.value.fold(
+                  (f) => f.maybeMap(
+                    shortPassword: (_) => 'Short Password',
+                    orElse: () => null,
+                  ),
+                  (_) => null,
+                ),
               ),
               BaseButton(
                 text: 'Log In',
-                onPressed:
-                    isLoginButtonEnabled(state) ? _onFormSubmitted : null,
+                onPressed: _onFormSubmitted,
               ),
             ],
           ),
@@ -249,22 +234,19 @@ class _LoginFormState extends State<LoginForm> {
 
   void _onEmailChanged() {
     _loginBloc.add(
-      LoginEmailChanged(email: _emailController.text),
+      LoginEvent.emailChanged(_emailController.text),
     );
   }
 
   void _onPasswordChanged() {
     _loginBloc.add(
-      LoginPasswordChanged(password: _passwordController.text),
+      LoginEvent.passwordChanged(_passwordController.text),
     );
   }
 
   void _onFormSubmitted() {
     _loginBloc.add(
-      LoginWithCredentialsPressed(
-        email: _emailController.text,
-        password: _passwordController.text,
-      ),
+      LoginEvent.loginPressed(),
     );
   }
 }

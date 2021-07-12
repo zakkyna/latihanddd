@@ -1,107 +1,91 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:latihanddd/domain/core/validators.dart';
-import 'package:latihanddd/infrastructure/repositories/user_repository.dart';
-import 'package:meta/meta.dart';
 import 'dart:async';
-import 'package:rxdart/rxdart.dart';
+
+import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:latihanddd/domain/auth/auth_failure.dart';
+import 'package:latihanddd/domain/auth/i_auth_facade.dart';
+import 'package:latihanddd/domain/auth/value_objects.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
+part 'login_bloc.freezed.dart';
 
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final UserRepository _userRepository;
+  final IAuthFacade _authFacade;
 
-  LoginBloc({
-    required UserRepository userRepository,
-  })  : _userRepository = userRepository,
-        super(LoginState.empty());
-
-  LoginState get initialState => LoginState.empty();
+  LoginBloc(this._authFacade) : super(LoginState.initial());
 
   @override
-  Stream<Transition<LoginEvent, LoginState>> transformEvents(
-    Stream<LoginEvent> events,
-    TransitionFunction<LoginEvent, LoginState> transitionFn,
-  ) {
-    final nonDebounceStream = events.where((event) {
-      return (event is! LoginEmailChanged && event is! LoginPasswordChanged);
-    });
-    final debounceStream = events.where((event) {
-      return (event is LoginEmailChanged || event is LoginPasswordChanged);
-    }).debounceTime(const Duration(milliseconds: 300));
-    return super.transformEvents(
-      nonDebounceStream.mergeWith([debounceStream]),
-      transitionFn,
+  Stream<LoginState> mapEventToState(
+    LoginEvent event,
+  ) async* {
+    yield* event.map(
+      emailChanged: (e) async* {
+        yield state.copyWith(
+          emailAddress: EmailAddress(e.emailStr),
+          authFailureOrSuccessOption: none(),
+        );
+      },
+      passwordChanged: (e) async* {
+        yield state.copyWith(
+          password: Password(e.passwordStr),
+          authFailureOrSuccessOption: none(),
+        );
+      },
+      toggleShowPasswordPressed: (e) async* {
+        yield state.copyWith(
+          showPassword: !state.showPassword,
+          authFailureOrSuccessOption: none(),
+        );
+      },
+      loginPressed: (e) async* {
+        yield* _performActionOnAuthFacadeWithEmailAndPassword(
+          _authFacade.signInWithEmailAndPassword,
+        );
+      },
+      signInWithGooglePressed: (e) async* {
+        yield state.copyWith(
+          isSubmitting: true,
+          authFailureOrSuccessOption: none(),
+        );
+        final failureOrSuccess = await _authFacade.signInWithGoogle();
+        yield state.copyWith(
+          isSubmitting: false,
+          authFailureOrSuccessOption: some(failureOrSuccess),
+        );
+      },
     );
   }
 
-  @override
-  Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is LoginEmailChanged) {
-      yield* _mapEmailChangedToState(event.email);
-    } else if (event is LoginPasswordChanged) {
-      yield* _mapPasswordChangedToState(event.password);
-    } else if (event is LoginWithCredentialsPressed) {
-      yield* _mapLoginWithCredentialsPressedToState(
-        event.email,
-        event.password,
+  Stream<LoginState> _performActionOnAuthFacadeWithEmailAndPassword(
+    Future<Either<AuthFailure, Unit>> Function({
+      required EmailAddress emailAddress,
+      required Password password,
+    })
+        forwardedCall,
+  ) async* {
+    Either<AuthFailure, Unit>? failureOrSuccess;
+    final isEmailValid = state.emailAddress.isValid();
+    final isPasswordValid = state.password.isValid();
+    if (isEmailValid && isPasswordValid) {
+      yield state.copyWith(
+        isSubmitting: true,
+        authFailureOrSuccessOption: none(),
+      );
+
+      failureOrSuccess = await forwardedCall(
+        emailAddress: state.emailAddress,
+        password: state.password,
       );
     }
-  }
 
-  Stream<LoginState> _mapEmailChangedToState(String email) async* {
-    yield state.update(
-      isEmailValid: Validators.isValidEmail(email),
+    yield state.copyWith(
+      isSubmitting: false,
+      showErrorMessages: true,
+      authFailureOrSuccessOption: optionOf(failureOrSuccess),
     );
-  }
-
-  Stream<LoginState> _mapPasswordChangedToState(String password) async* {
-    yield state.update(
-      isPasswordValid: Validators.isValidPassword(password),
-    );
-  }
-
-  Stream<LoginState> _mapLoginWithCredentialsPressedToState(
-    String email,
-    String password,
-  ) async* {
-    yield LoginState.loading();
-    try {
-      await _userRepository.signInWithCredentials(email, password);
-      yield LoginState.success();
-    } on FirebaseAuthException catch (e) {
-      String message;
-
-      // e.code :
-      // invalid-email:
-      // Thrown if the email address is not valid.
-      // user-disabled:
-      // Thrown if the user corresponding to the given email has been disabled.
-      // user-not-found:
-      // Thrown if there is no user corresponding to the given email.
-      // wrong-password:
-      // Thrown if the password is invalid for the given email, or the account corresponding to the email does not have a password set
-      switch (e.code) {
-        case 'invalid-email':
-          message = 'Wrong email address !';
-          break;
-        case 'user-disabled':
-          message = 'User suspended !';
-          break;
-        case 'user-not-found':
-          message = 'User not found !';
-          break;
-        case 'wrong-password':
-          message = 'Wrong password !';
-          break;
-        default:
-          message = 'Login Failure';
-      }
-      yield LoginState.failure(message);
-    } catch (e) {
-      yield LoginState.failure('Login Failure');
-    }
   }
 }

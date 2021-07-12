@@ -28,3 +28,29 @@ class Password extends ValueObject<String> {
 
   const Password._(this.value);
 }
+
+class RetypePassword extends ValueObject<String> {
+  @override
+  final Either<ValueFailure<String>, String> value;
+
+  factory RetypePassword(String input, String previous) {
+    return RetypePassword._(
+      validateRetypePassword(input, previous),
+    );
+  }
+
+  const RetypePassword._(this.value);
+}
+
+class FullName extends ValueObject<String> {
+  @override
+  final Either<ValueFailure<String>, String> value;
+
+  factory FullName(String input) {
+    return FullName._(
+      validateFullName(input),
+    );
+  }
+
+  const FullName._(this.value);
+}
