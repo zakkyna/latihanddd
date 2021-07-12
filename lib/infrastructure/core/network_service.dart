@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/src/response.dart';
+import 'package:injectable/injectable.dart';
 import 'package:latihanddd/domain/core/i_network_service.dart';
 import 'package:latihanddd/domain/core/network_exceptions.dart';
 
+@LazySingleton(as: INetworkService)
 class NetworkService implements INetworkService {
   NetworkService(this._dio, this._connectivity);
 
@@ -13,7 +15,7 @@ class NetworkService implements INetworkService {
   final Connectivity _connectivity;
 
   @override
-  Future<Response> getHTTP({required String path}) async {
+  Future<Response> getHttp({required String path}) async {
     var connectivityResult = await _connectivity.checkConnectivity();
     if (connectivityResult != ConnectivityResult.none) {
       try {

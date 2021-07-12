@@ -16,6 +16,18 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$WeatherFailureTearOff {
   const _$WeatherFailureTearOff();
 
+  _LocationServiceDisabled locationServiceDisabled() {
+    return const _LocationServiceDisabled();
+  }
+
+  _NoLocationPermission noLocationPermission() {
+    return const _NoLocationPermission();
+  }
+
+  _LocationPermisionDeniedForever locationPermisionDeniedForever() {
+    return const _LocationPermisionDeniedForever();
+  }
+
   _NoInternet noInternet() {
     return const _NoInternet();
   }
@@ -36,6 +48,9 @@ const $WeatherFailure = _$WeatherFailureTearOff();
 mixin _$WeatherFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() locationServiceDisabled,
+    required TResult Function() noLocationPermission,
+    required TResult Function() locationPermisionDeniedForever,
     required TResult Function() noInternet,
     required TResult Function() noData,
     required TResult Function() serverError,
@@ -43,6 +58,9 @@ mixin _$WeatherFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? locationServiceDisabled,
+    TResult Function()? noLocationPermission,
+    TResult Function()? locationPermisionDeniedForever,
     TResult Function()? noInternet,
     TResult Function()? noData,
     TResult Function()? serverError,
@@ -51,6 +69,11 @@ mixin _$WeatherFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_LocationServiceDisabled value)
+        locationServiceDisabled,
+    required TResult Function(_NoLocationPermission value) noLocationPermission,
+    required TResult Function(_LocationPermisionDeniedForever value)
+        locationPermisionDeniedForever,
     required TResult Function(_NoInternet value) noInternet,
     required TResult Function(_NoData value) noData,
     required TResult Function(_ServerError value) serverError,
@@ -58,6 +81,10 @@ mixin _$WeatherFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LocationServiceDisabled value)? locationServiceDisabled,
+    TResult Function(_NoLocationPermission value)? noLocationPermission,
+    TResult Function(_LocationPermisionDeniedForever value)?
+        locationPermisionDeniedForever,
     TResult Function(_NoInternet value)? noInternet,
     TResult Function(_NoData value)? noData,
     TResult Function(_ServerError value)? serverError,
@@ -81,6 +108,327 @@ class _$WeatherFailureCopyWithImpl<$Res>
   final WeatherFailure _value;
   // ignore: unused_field
   final $Res Function(WeatherFailure) _then;
+}
+
+/// @nodoc
+abstract class _$LocationServiceDisabledCopyWith<$Res> {
+  factory _$LocationServiceDisabledCopyWith(_LocationServiceDisabled value,
+          $Res Function(_LocationServiceDisabled) then) =
+      __$LocationServiceDisabledCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LocationServiceDisabledCopyWithImpl<$Res>
+    extends _$WeatherFailureCopyWithImpl<$Res>
+    implements _$LocationServiceDisabledCopyWith<$Res> {
+  __$LocationServiceDisabledCopyWithImpl(_LocationServiceDisabled _value,
+      $Res Function(_LocationServiceDisabled) _then)
+      : super(_value, (v) => _then(v as _LocationServiceDisabled));
+
+  @override
+  _LocationServiceDisabled get _value =>
+      super._value as _LocationServiceDisabled;
+}
+
+/// @nodoc
+
+class _$_LocationServiceDisabled implements _LocationServiceDisabled {
+  const _$_LocationServiceDisabled();
+
+  @override
+  String toString() {
+    return 'WeatherFailure.locationServiceDisabled()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _LocationServiceDisabled);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() locationServiceDisabled,
+    required TResult Function() noLocationPermission,
+    required TResult Function() locationPermisionDeniedForever,
+    required TResult Function() noInternet,
+    required TResult Function() noData,
+    required TResult Function() serverError,
+  }) {
+    return locationServiceDisabled();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? locationServiceDisabled,
+    TResult Function()? noLocationPermission,
+    TResult Function()? locationPermisionDeniedForever,
+    TResult Function()? noInternet,
+    TResult Function()? noData,
+    TResult Function()? serverError,
+    required TResult orElse(),
+  }) {
+    if (locationServiceDisabled != null) {
+      return locationServiceDisabled();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LocationServiceDisabled value)
+        locationServiceDisabled,
+    required TResult Function(_NoLocationPermission value) noLocationPermission,
+    required TResult Function(_LocationPermisionDeniedForever value)
+        locationPermisionDeniedForever,
+    required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(_NoData value) noData,
+    required TResult Function(_ServerError value) serverError,
+  }) {
+    return locationServiceDisabled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LocationServiceDisabled value)? locationServiceDisabled,
+    TResult Function(_NoLocationPermission value)? noLocationPermission,
+    TResult Function(_LocationPermisionDeniedForever value)?
+        locationPermisionDeniedForever,
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_NoData value)? noData,
+    TResult Function(_ServerError value)? serverError,
+    required TResult orElse(),
+  }) {
+    if (locationServiceDisabled != null) {
+      return locationServiceDisabled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LocationServiceDisabled implements WeatherFailure {
+  const factory _LocationServiceDisabled() = _$_LocationServiceDisabled;
+}
+
+/// @nodoc
+abstract class _$NoLocationPermissionCopyWith<$Res> {
+  factory _$NoLocationPermissionCopyWith(_NoLocationPermission value,
+          $Res Function(_NoLocationPermission) then) =
+      __$NoLocationPermissionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$NoLocationPermissionCopyWithImpl<$Res>
+    extends _$WeatherFailureCopyWithImpl<$Res>
+    implements _$NoLocationPermissionCopyWith<$Res> {
+  __$NoLocationPermissionCopyWithImpl(
+      _NoLocationPermission _value, $Res Function(_NoLocationPermission) _then)
+      : super(_value, (v) => _then(v as _NoLocationPermission));
+
+  @override
+  _NoLocationPermission get _value => super._value as _NoLocationPermission;
+}
+
+/// @nodoc
+
+class _$_NoLocationPermission implements _NoLocationPermission {
+  const _$_NoLocationPermission();
+
+  @override
+  String toString() {
+    return 'WeatherFailure.noLocationPermission()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _NoLocationPermission);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() locationServiceDisabled,
+    required TResult Function() noLocationPermission,
+    required TResult Function() locationPermisionDeniedForever,
+    required TResult Function() noInternet,
+    required TResult Function() noData,
+    required TResult Function() serverError,
+  }) {
+    return noLocationPermission();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? locationServiceDisabled,
+    TResult Function()? noLocationPermission,
+    TResult Function()? locationPermisionDeniedForever,
+    TResult Function()? noInternet,
+    TResult Function()? noData,
+    TResult Function()? serverError,
+    required TResult orElse(),
+  }) {
+    if (noLocationPermission != null) {
+      return noLocationPermission();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LocationServiceDisabled value)
+        locationServiceDisabled,
+    required TResult Function(_NoLocationPermission value) noLocationPermission,
+    required TResult Function(_LocationPermisionDeniedForever value)
+        locationPermisionDeniedForever,
+    required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(_NoData value) noData,
+    required TResult Function(_ServerError value) serverError,
+  }) {
+    return noLocationPermission(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LocationServiceDisabled value)? locationServiceDisabled,
+    TResult Function(_NoLocationPermission value)? noLocationPermission,
+    TResult Function(_LocationPermisionDeniedForever value)?
+        locationPermisionDeniedForever,
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_NoData value)? noData,
+    TResult Function(_ServerError value)? serverError,
+    required TResult orElse(),
+  }) {
+    if (noLocationPermission != null) {
+      return noLocationPermission(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _NoLocationPermission implements WeatherFailure {
+  const factory _NoLocationPermission() = _$_NoLocationPermission;
+}
+
+/// @nodoc
+abstract class _$LocationPermisionDeniedForeverCopyWith<$Res> {
+  factory _$LocationPermisionDeniedForeverCopyWith(
+          _LocationPermisionDeniedForever value,
+          $Res Function(_LocationPermisionDeniedForever) then) =
+      __$LocationPermisionDeniedForeverCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LocationPermisionDeniedForeverCopyWithImpl<$Res>
+    extends _$WeatherFailureCopyWithImpl<$Res>
+    implements _$LocationPermisionDeniedForeverCopyWith<$Res> {
+  __$LocationPermisionDeniedForeverCopyWithImpl(
+      _LocationPermisionDeniedForever _value,
+      $Res Function(_LocationPermisionDeniedForever) _then)
+      : super(_value, (v) => _then(v as _LocationPermisionDeniedForever));
+
+  @override
+  _LocationPermisionDeniedForever get _value =>
+      super._value as _LocationPermisionDeniedForever;
+}
+
+/// @nodoc
+
+class _$_LocationPermisionDeniedForever
+    implements _LocationPermisionDeniedForever {
+  const _$_LocationPermisionDeniedForever();
+
+  @override
+  String toString() {
+    return 'WeatherFailure.locationPermisionDeniedForever()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _LocationPermisionDeniedForever);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() locationServiceDisabled,
+    required TResult Function() noLocationPermission,
+    required TResult Function() locationPermisionDeniedForever,
+    required TResult Function() noInternet,
+    required TResult Function() noData,
+    required TResult Function() serverError,
+  }) {
+    return locationPermisionDeniedForever();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? locationServiceDisabled,
+    TResult Function()? noLocationPermission,
+    TResult Function()? locationPermisionDeniedForever,
+    TResult Function()? noInternet,
+    TResult Function()? noData,
+    TResult Function()? serverError,
+    required TResult orElse(),
+  }) {
+    if (locationPermisionDeniedForever != null) {
+      return locationPermisionDeniedForever();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LocationServiceDisabled value)
+        locationServiceDisabled,
+    required TResult Function(_NoLocationPermission value) noLocationPermission,
+    required TResult Function(_LocationPermisionDeniedForever value)
+        locationPermisionDeniedForever,
+    required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(_NoData value) noData,
+    required TResult Function(_ServerError value) serverError,
+  }) {
+    return locationPermisionDeniedForever(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LocationServiceDisabled value)? locationServiceDisabled,
+    TResult Function(_NoLocationPermission value)? noLocationPermission,
+    TResult Function(_LocationPermisionDeniedForever value)?
+        locationPermisionDeniedForever,
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_NoData value)? noData,
+    TResult Function(_ServerError value)? serverError,
+    required TResult orElse(),
+  }) {
+    if (locationPermisionDeniedForever != null) {
+      return locationPermisionDeniedForever(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LocationPermisionDeniedForever implements WeatherFailure {
+  const factory _LocationPermisionDeniedForever() =
+      _$_LocationPermisionDeniedForever;
 }
 
 /// @nodoc
@@ -122,6 +470,9 @@ class _$_NoInternet implements _NoInternet {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() locationServiceDisabled,
+    required TResult Function() noLocationPermission,
+    required TResult Function() locationPermisionDeniedForever,
     required TResult Function() noInternet,
     required TResult Function() noData,
     required TResult Function() serverError,
@@ -132,6 +483,9 @@ class _$_NoInternet implements _NoInternet {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? locationServiceDisabled,
+    TResult Function()? noLocationPermission,
+    TResult Function()? locationPermisionDeniedForever,
     TResult Function()? noInternet,
     TResult Function()? noData,
     TResult Function()? serverError,
@@ -146,6 +500,11 @@ class _$_NoInternet implements _NoInternet {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_LocationServiceDisabled value)
+        locationServiceDisabled,
+    required TResult Function(_NoLocationPermission value) noLocationPermission,
+    required TResult Function(_LocationPermisionDeniedForever value)
+        locationPermisionDeniedForever,
     required TResult Function(_NoInternet value) noInternet,
     required TResult Function(_NoData value) noData,
     required TResult Function(_ServerError value) serverError,
@@ -156,6 +515,10 @@ class _$_NoInternet implements _NoInternet {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LocationServiceDisabled value)? locationServiceDisabled,
+    TResult Function(_NoLocationPermission value)? noLocationPermission,
+    TResult Function(_LocationPermisionDeniedForever value)?
+        locationPermisionDeniedForever,
     TResult Function(_NoInternet value)? noInternet,
     TResult Function(_NoData value)? noData,
     TResult Function(_ServerError value)? serverError,
@@ -209,6 +572,9 @@ class _$_NoData implements _NoData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() locationServiceDisabled,
+    required TResult Function() noLocationPermission,
+    required TResult Function() locationPermisionDeniedForever,
     required TResult Function() noInternet,
     required TResult Function() noData,
     required TResult Function() serverError,
@@ -219,6 +585,9 @@ class _$_NoData implements _NoData {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? locationServiceDisabled,
+    TResult Function()? noLocationPermission,
+    TResult Function()? locationPermisionDeniedForever,
     TResult Function()? noInternet,
     TResult Function()? noData,
     TResult Function()? serverError,
@@ -233,6 +602,11 @@ class _$_NoData implements _NoData {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_LocationServiceDisabled value)
+        locationServiceDisabled,
+    required TResult Function(_NoLocationPermission value) noLocationPermission,
+    required TResult Function(_LocationPermisionDeniedForever value)
+        locationPermisionDeniedForever,
     required TResult Function(_NoInternet value) noInternet,
     required TResult Function(_NoData value) noData,
     required TResult Function(_ServerError value) serverError,
@@ -243,6 +617,10 @@ class _$_NoData implements _NoData {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LocationServiceDisabled value)? locationServiceDisabled,
+    TResult Function(_NoLocationPermission value)? noLocationPermission,
+    TResult Function(_LocationPermisionDeniedForever value)?
+        locationPermisionDeniedForever,
     TResult Function(_NoInternet value)? noInternet,
     TResult Function(_NoData value)? noData,
     TResult Function(_ServerError value)? serverError,
@@ -299,6 +677,9 @@ class _$_ServerError implements _ServerError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() locationServiceDisabled,
+    required TResult Function() noLocationPermission,
+    required TResult Function() locationPermisionDeniedForever,
     required TResult Function() noInternet,
     required TResult Function() noData,
     required TResult Function() serverError,
@@ -309,6 +690,9 @@ class _$_ServerError implements _ServerError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? locationServiceDisabled,
+    TResult Function()? noLocationPermission,
+    TResult Function()? locationPermisionDeniedForever,
     TResult Function()? noInternet,
     TResult Function()? noData,
     TResult Function()? serverError,
@@ -323,6 +707,11 @@ class _$_ServerError implements _ServerError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_LocationServiceDisabled value)
+        locationServiceDisabled,
+    required TResult Function(_NoLocationPermission value) noLocationPermission,
+    required TResult Function(_LocationPermisionDeniedForever value)
+        locationPermisionDeniedForever,
     required TResult Function(_NoInternet value) noInternet,
     required TResult Function(_NoData value) noData,
     required TResult Function(_ServerError value) serverError,
@@ -333,6 +722,10 @@ class _$_ServerError implements _ServerError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LocationServiceDisabled value)? locationServiceDisabled,
+    TResult Function(_NoLocationPermission value)? noLocationPermission,
+    TResult Function(_LocationPermisionDeniedForever value)?
+        locationPermisionDeniedForever,
     TResult Function(_NoInternet value)? noInternet,
     TResult Function(_NoData value)? noData,
     TResult Function(_ServerError value)? serverError,

@@ -19,3 +19,12 @@ TextStyle blueLinkStyle = GoogleFonts.poppins()
 
 TextStyle buttonLabelStyle1 =
     GoogleFonts.poppins().copyWith(fontSize: 22, fontWeight: FontWeight.w600);
+
+TextStyle titleLabelStyle =
+    GoogleFonts.poppins().copyWith(fontSize: 28, fontWeight: FontWeight.w700);
+
+TextStyle weatherMainStyle =
+    GoogleFonts.poppins().copyWith(fontSize: 20, fontWeight: FontWeight.w500);
+
+TextStyle feelsLikeStyle =
+    GoogleFonts.poppins().copyWith(fontSize: 18, fontWeight: FontWeight.w600);

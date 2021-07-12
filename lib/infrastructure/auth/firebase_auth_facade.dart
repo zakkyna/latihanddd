@@ -1,13 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:latihanddd/domain/auth/auth_failure.dart';
 import 'package:latihanddd/domain/auth/i_auth_facade.dart';
 import 'package:latihanddd/domain/auth/user.dart';
 import 'package:latihanddd/domain/auth/value_objects.dart';
-import 'package:latihanddd/domain/core/errors.dart';
 import './firebase_user_mapper.dart';
 
 @LazySingleton(as: IAuthFacade)
@@ -41,7 +39,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       final user = result.user;
       await user?.updateDisplayName(fullNameStr);
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         return left(const AuthFailure.emailAlreadyInUse());
       } else {
@@ -63,7 +61,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         password: passwordStr,
       );
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email' || e.code == 'wrong-password') {
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
       } else {
@@ -89,7 +87,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       return _firebaseAuth
           .signInWithCredential(authCredential)
           .then((r) => right(unit));
-    } on PlatformException catch (_) {
+    } on FirebaseAuthException catch (_) {
       return left(const AuthFailure.serverError());
     }
   }

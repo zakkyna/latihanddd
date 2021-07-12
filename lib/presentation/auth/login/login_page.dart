@@ -6,7 +6,6 @@ import 'package:latihanddd/application/auth/login_bloc/login_bloc.dart';
 import 'package:latihanddd/domain/core/theme.dart';
 import 'package:latihanddd/injection.dart';
 import 'package:latihanddd/presentation/core/widgets/widgets.dart';
-import 'package:latihanddd/presentation/router/router.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -77,9 +76,28 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 );
             },
-            (_) {
-              Get.offAllNamed(Routers.weather);
+            (_) async {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const <Widget>[
+                        Flexible(
+                          child: Text('Login success !'),
+                        ),
+                        Icon(
+                          Icons.check_circle_outline,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                    backgroundColor: Colors.green,
+                  ),
+                );
               _authBloc.add(const AuthEvent.authCheckRequested());
+              Get.back();
             },
           ),
         );
@@ -105,11 +123,15 @@ class _LoginFormState extends State<LoginForm> {
             padding: const EdgeInsets.all(defaultMargin),
             children: <Widget>[
               const SizedBox(
-                height: 20,
+                height: 100,
               ),
               Text(
                 'Log in',
                 textAlign: TextAlign.center,
+                style: titleLabelStyle,
+              ),
+              const SizedBox(
+                height: 100,
               ),
               TextFormField(
                 autovalidateMode: state.showErrorMessages

@@ -19,10 +19,15 @@ class UnauthenticatedPage extends StatelessWidget {
           ),
           children: [
             const SizedBox(
-              height: 80,
+              height: 100,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * .1,
+            Text(
+              'Weather APP DDD',
+              textAlign: TextAlign.center,
+              style: titleLabelStyle,
+            ),
+            const SizedBox(
+              height: 100,
             ),
             BaseButton(
                 text: 'Log in',

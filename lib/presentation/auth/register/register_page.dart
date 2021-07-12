@@ -6,7 +6,6 @@ import 'package:latihanddd/application/auth/register_bloc/register_bloc.dart';
 import 'package:latihanddd/domain/core/theme.dart';
 import 'package:latihanddd/injection.dart';
 import 'package:latihanddd/presentation/core/widgets/widgets.dart';
-import 'package:latihanddd/presentation/router/router.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -34,8 +33,6 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _retypePasswordController =
       TextEditingController();
-
-  bool showPassword = false;
 
   late final RegisterBloc _registerBloc =
       BlocProvider.of<RegisterBloc>(context);
@@ -83,8 +80,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                 );
             },
-            (_) {
-              Get.offAllNamed(Routers.weather);
+            (_) async {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
@@ -105,6 +101,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                 );
               _authBloc.add(const AuthEvent.authCheckRequested());
+              Get.back();
             },
           ),
         );
@@ -133,14 +130,15 @@ class _RegisterFormState extends State<RegisterForm> {
               child: ListView(
                 children: <Widget>[
                   const SizedBox(
-                    height: 20,
+                    height: 100,
                   ),
                   Text(
                     'Register',
                     textAlign: TextAlign.center,
+                    style: titleLabelStyle,
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 100,
                   ),
                   TextFormField(
                     autovalidateMode: state.showErrorMessages
@@ -266,22 +264,8 @@ class _RegisterFormState extends State<RegisterForm> {
                         color: Colors.black,
                         size: 22,
                       ),
-                      suffixIcon: GestureDetector(
-                        onTap: () =>
-                            setState(() => showPassword = !showPassword),
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 15),
-                          child: Icon(
-                            showPassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: Colors.black,
-                            size: 20,
-                          ),
-                        ),
-                      ),
                     ),
-                    obscureText: !showPassword,
+                    obscureText: true,
                     autocorrect: false,
                     validator: (_) => state.password.value.fold(
                       (f) => f.maybeMap(
@@ -322,12 +306,12 @@ class _RegisterFormState extends State<RegisterForm> {
                       hintText: 'Retype Password',
                       hintStyle: hintStyle,
                       prefixIcon: const Icon(
-                        Icons.account_circle,
+                        Icons.lock_rounded,
                         color: Colors.black,
                         size: 22,
                       ),
                     ),
-                    keyboardType: TextInputType.name,
+                    obscureText: true,
                     autocorrect: false,
                     validator: (_) => state.retypePassword.value.fold(
                       (f) => f.maybeMap(

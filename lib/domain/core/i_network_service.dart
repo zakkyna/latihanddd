@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 abstract class INetworkService {
-  Future<Response> getHTTP({
+  Future<Response> getHttp({
     required String path,
   });
 }

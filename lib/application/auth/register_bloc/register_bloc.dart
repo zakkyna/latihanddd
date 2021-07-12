@@ -50,7 +50,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       },
       registerPressed: (e) async* {
         yield* _performActionOnAuthFacadeWithEmailAndPassword(
-          _authFacade.signInWithEmailAndPassword,
+          _authFacade.registerWithEmailAndPassword,
         );
       },
     );
@@ -58,21 +58,28 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   Stream<RegisterState> _performActionOnAuthFacadeWithEmailAndPassword(
     Future<Either<AuthFailure, Unit>> Function({
+      required FullName fullName,
       required EmailAddress emailAddress,
       required Password password,
     })
         forwardedCall,
   ) async* {
     Either<AuthFailure, Unit>? failureOrSuccess;
+    final isFullNameValid = state.fullName.isValid();
     final isEmailValid = state.emailAddress.isValid();
     final isPasswordValid = state.password.isValid();
-    if (isEmailValid && isPasswordValid) {
+    final isRetypePasswordValid = state.retypePassword.isValid();
+    if (isFullNameValid &&
+        isEmailValid &&
+        isPasswordValid &&
+        isRetypePasswordValid) {
       yield state.copyWith(
         isSubmitting: true,
         authFailureOrSuccessOption: none(),
       );
 
       failureOrSuccess = await forwardedCall(
+        fullName: state.fullName,
         emailAddress: state.emailAddress,
         password: state.password,
       );

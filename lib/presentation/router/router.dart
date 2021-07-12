@@ -1,9 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
-import 'package:latihanddd/application/auth/login_bloc/login_bloc.dart';
-import 'package:latihanddd/application/auth/register_bloc/register_bloc.dart';
-import 'package:latihanddd/application/weather/weather_bloc.dart';
-import 'package:latihanddd/injection.dart';
 import 'package:latihanddd/presentation/auth/unauthenticated.dart';
 import 'package:latihanddd/presentation/splash/splash_page.dart';
 import 'package:latihanddd/presentation/weather/weather_page.dart';
@@ -26,24 +21,15 @@ class Routers {
     ),
     GetPage(
       name: Routers.weather,
-      page: () => BlocProvider<WeatherBloc>(
-        create: (context) => getIt<WeatherBloc>(),
-        child: WeatherPage(),
-      ),
+      page: () => WeatherPage(),
     ),
     GetPage(
       name: Routers.login,
-      page: () => BlocProvider<LoginBloc>(
-        create: (context) => getIt<LoginBloc>(),
-        child: LoginPage(),
-      ),
+      page: () => LoginPage(),
     ),
     GetPage(
-      name: Routers.login,
-      page: () => BlocProvider<RegisterBloc>(
-        create: (context) => getIt<RegisterBloc>(),
-        child: LoginPage(),
-      ),
+      name: Routers.register,
+      page: () => RegisterPage(),
     ),
   ];
 }

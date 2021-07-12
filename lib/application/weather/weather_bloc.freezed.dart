@@ -152,6 +152,18 @@ class _$WeatherStateTearOff {
   _Initial initial() {
     return const _Initial();
   }
+
+  _Loading loading() {
+    return const _Loading();
+  }
+
+  _Loaded loaded(
+      {required Option<Either<WeatherFailure, WeatherData>>
+          optionFailureOrSuccess}) {
+    return _Loaded(
+      optionFailureOrSuccess: optionFailureOrSuccess,
+    );
+  }
 }
 
 /// @nodoc
@@ -162,22 +174,34 @@ mixin _$WeatherState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess)
+        loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess)?
+        loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -237,6 +261,10 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess)
+        loaded,
   }) {
     return initial();
   }
@@ -245,6 +273,10 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess)?
+        loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -257,6 +289,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
   }) {
     return initial(this);
   }
@@ -265,6 +299,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -276,4 +312,221 @@ class _$_Initial implements _Initial {
 
 abstract class _Initial implements WeatherState {
   const factory _Initial() = _$_Initial;
+}
+
+/// @nodoc
+abstract class _$LoadingCopyWith<$Res> {
+  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) then) =
+      __$LoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LoadingCopyWithImpl<$Res> extends _$WeatherStateCopyWithImpl<$Res>
+    implements _$LoadingCopyWith<$Res> {
+  __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
+      : super(_value, (v) => _then(v as _Loading));
+
+  @override
+  _Loading get _value => super._value as _Loading;
+}
+
+/// @nodoc
+
+class _$_Loading implements _Loading {
+  const _$_Loading();
+
+  @override
+  String toString() {
+    return 'WeatherState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Loading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess)
+        loaded,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess)?
+        loaded,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loading implements WeatherState {
+  const factory _Loading() = _$_Loading;
+}
+
+/// @nodoc
+abstract class _$LoadedCopyWith<$Res> {
+  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
+      __$LoadedCopyWithImpl<$Res>;
+  $Res call(
+      {Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess});
+}
+
+/// @nodoc
+class __$LoadedCopyWithImpl<$Res> extends _$WeatherStateCopyWithImpl<$Res>
+    implements _$LoadedCopyWith<$Res> {
+  __$LoadedCopyWithImpl(_Loaded _value, $Res Function(_Loaded) _then)
+      : super(_value, (v) => _then(v as _Loaded));
+
+  @override
+  _Loaded get _value => super._value as _Loaded;
+
+  @override
+  $Res call({
+    Object? optionFailureOrSuccess = freezed,
+  }) {
+    return _then(_Loaded(
+      optionFailureOrSuccess: optionFailureOrSuccess == freezed
+          ? _value.optionFailureOrSuccess
+          : optionFailureOrSuccess // ignore: cast_nullable_to_non_nullable
+              as Option<Either<WeatherFailure, WeatherData>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Loaded implements _Loaded {
+  const _$_Loaded({required this.optionFailureOrSuccess});
+
+  @override
+  final Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess;
+
+  @override
+  String toString() {
+    return 'WeatherState.loaded(optionFailureOrSuccess: $optionFailureOrSuccess)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Loaded &&
+            (identical(other.optionFailureOrSuccess, optionFailureOrSuccess) ||
+                const DeepCollectionEquality().equals(
+                    other.optionFailureOrSuccess, optionFailureOrSuccess)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(optionFailureOrSuccess);
+
+  @JsonKey(ignore: true)
+  @override
+  _$LoadedCopyWith<_Loaded> get copyWith =>
+      __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess)
+        loaded,
+  }) {
+    return loaded(optionFailureOrSuccess);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            Option<Either<WeatherFailure, WeatherData>> optionFailureOrSuccess)?
+        loaded,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(optionFailureOrSuccess);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loaded implements WeatherState {
+  const factory _Loaded(
+      {required Option<Either<WeatherFailure, WeatherData>>
+          optionFailureOrSuccess}) = _$_Loaded;
+
+  Option<Either<WeatherFailure, WeatherData>> get optionFailureOrSuccess =>
+      throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
